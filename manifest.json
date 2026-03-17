@@ -1,9 +1,9 @@
 {
-  "name": "People Memory PoC Plus",
-  "short_name": "PeopleMemory+",
+  "name": "People Memory",
+  "short_name": "PeopleMemory",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#f6fbff",
-  "theme_color": "#f6fbff",
+  "background_color": "#f8fbff",
+  "theme_color": "#f8fbff",
   "icons": []
 }

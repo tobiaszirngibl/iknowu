@@ -1,21 +1,16 @@
-# People Memory PoC+
+# People Memory
 
-Mobile-first WebApp (PWA) zum Speichern von Kontakten inkl. tiefer persönlicher und sozialer Kontextinfos.
+Mobile-first WebApp-Prototyp für persönliche Kontaktinformationen.
 
-## Highlights
+## Neu im Redesign
 
-- Freundliches, modernes Light-UI mit Farben, Emojis und Animationen
-- Mobile-first Tabs: Home, Kontakte, Kategorien, Settings
-- Home-Dashboard mit allgemeinen Infos, Kategorie-Balken und Geburtstagsliste
-- Detaillierte Kontaktfelder inkl. Familie:
-  - Ehepartner/in Name
-  - Kinder Namen
-  - Geschlechter der Kinder
-- Verknüpfungen zwischen bestehenden Kontakten (Relationen)
+- Komplett neu aufgebautes UI im Stil einer mobilen App (Bottom Navigation, große Touch-Flächen, mehr Weißraum)
+- Home-Tab mit reinen Überblicksinfos (Stats, Kategorie-Balken, Geburtstage)
+- Kinder werden jetzt **einzeln** hinzugefügt (Name + Geschlecht pro Kind)
+- Verknüpfung zwischen Kontakten (bestehender Kontakt + Beziehungsart)
 - Eigene Kategorien erstellen
-- Suche + Filter + Bearbeiten + Löschen
-- Demo-Daten laden für direkten Schnelltest
-- Lokale Speicherung (`localStorage`) + Offline-Cache (Service Worker)
+- Suche, Filter, Bearbeiten, Löschen, Export, Demo-Daten
+- Lokale Speicherung + Offline Cache (PWA)
 
 ## Start
 
@@ -24,11 +19,3 @@ python3 -m http.server 4173
 ```
 
 Dann öffnen: <http://localhost:4173>
-
-## Schnell testen
-
-1. Tab **Settings** öffnen
-2. **Demo-Daten laden** klicken
-3. In **Kontakte** Details öffnen und Relationen prüfen
-4. In **Kategorien** eigene Kategorie erstellen
-5. In **Home** Dashboard-Infos ansehen

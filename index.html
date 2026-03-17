@@ -3,147 +3,149 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6fbff" />
-    <title>People Memory – PoC+</title>
+    <meta name="theme-color" content="#f8fbff" />
+    <title>People Memory</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <header class="app-header card">
-        <p class="eyebrow">PoC+ WebApp</p>
-        <h1>People Memory ✨</h1>
-        <p class="subtitle">Mehr Kontext, bessere Gespräche, weniger Vergessen.</p>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">People Memory</p>
+          <h1>Dein Kontakt-CRM 📱</h1>
+        </div>
+        <button id="addPersonButton" class="btn primary">+ Kontakt</button>
       </header>
 
-      <section id="homeTab" class="tab-panel active" data-tab="home">
+      <section class="tab active" data-tab="home">
         <article class="card hero">
-          <h2>Dashboard 🏠</h2>
-          <p>Hier findest du nur allgemeine Infos: Überblick, Verteilungen und hilfreiche Erinnerungen.</p>
+          <h2>Home</h2>
+          <p>Übersicht über Kontakte, Familieninfos und Beziehungen.</p>
           <div id="stats" class="stats"></div>
         </article>
 
         <article class="card">
-          <h3>Kategorie-Überblick 📊</h3>
-          <p class="subtitle">Schneller Blick auf deine Kontaktlandschaft.</p>
-          <div id="homeCharts" class="home-charts"></div>
+          <h3>Kategorien</h3>
+          <div id="homeCharts" class="bars"></div>
         </article>
 
         <article class="card">
           <h3>Nächste Geburtstage 🎂</h3>
-          <ul id="birthdayList" class="info-list"></ul>
+          <ul id="birthdayList" class="list"></ul>
         </article>
       </section>
 
-      <section id="contactsTab" class="tab-panel" data-tab="kontakte">
-        <section class="toolbar card">
-          <div class="toolbar-head">
-            <h2>Kontakte 👥</h2>
-            <button id="addPersonButton" class="btn btn-primary">+ Neue Person</button>
-          </div>
-
-          <label class="search-field" for="searchInput">
+      <section class="tab" data-tab="kontakte">
+        <article class="card">
+          <label class="search">
             <span>🔎</span>
-            <input id="searchInput" type="search" placeholder="Suche nach Name, Beruf, Beziehung, Interesse …" />
+            <input id="searchInput" placeholder="Suche nach Name, Beruf, Interessen..." />
           </label>
           <select id="categoryFilter"></select>
-        </section>
-        <section id="personList" class="person-list"></section>
+        </article>
+        <section id="personList" class="stack"></section>
       </section>
 
-      <section id="categoriesTab" class="tab-panel" data-tab="kategorien">
+      <section class="tab" data-tab="kategorien">
         <article class="card">
-          <h2>Kategorien 🗂️</h2>
-          <p class="subtitle">Erstelle eigene Kategorien und filtere Kontakte mit einem Tap.</p>
-          <form id="categoryForm" class="inline-form">
-            <input id="newCategoryInput" placeholder="Neue Kategorie (z. B. Nachbarn)" required />
-            <button class="btn" type="submit">Kategorie hinzufügen</button>
+          <h2>Kategorien</h2>
+          <form id="categoryForm" class="row">
+            <input id="newCategoryInput" placeholder="Eigene Kategorie, z.B. Nachbarn" required />
+            <button class="btn" type="submit">Hinzufügen</button>
           </form>
-          <div id="categoryOverview" class="category-overview"></div>
+          <div id="categoryOverview" class="grid2"></div>
         </article>
       </section>
 
-      <section id="settingsTab" class="tab-panel" data-tab="settings">
-        <article class="card settings">
-          <h2>Settings ⚙️</h2>
-          <p>Daten lokal verwalten, exportieren und zurücksetzen.</p>
-          <div class="settings-actions">
-            <button id="seedButton" class="btn">Demo-Daten laden</button>
-            <button id="exportButton" class="btn">Export (JSON)</button>
-            <button id="clearButton" class="btn btn-danger">Alle Daten löschen</button>
-          </div>
+      <section class="tab" data-tab="settings">
+        <article class="card stack">
+          <h2>Settings</h2>
+          <button id="seedButton" class="btn">Demo-Daten laden</button>
+          <button id="exportButton" class="btn">Export JSON</button>
+          <button id="clearButton" class="btn danger">Alle Daten löschen</button>
         </article>
       </section>
 
-      <nav class="tab-nav card" aria-label="Hauptnavigation">
-        <button class="tab-link active" data-target="home">Home</button>
-        <button class="tab-link" data-target="kontakte">Kontakte</button>
-        <button class="tab-link" data-target="kategorien">Kategorien</button>
-        <button class="tab-link" data-target="settings">Settings</button>
+      <nav class="bottom-nav">
+        <button class="nav-btn active" data-target="home">🏠<span>Home</span></button>
+        <button class="nav-btn" data-target="kontakte">👥<span>Kontakte</span></button>
+        <button class="nav-btn" data-target="kategorien">🗂️<span>Kategorien</span></button>
+        <button class="nav-btn" data-target="settings">⚙️<span>Settings</span></button>
       </nav>
     </main>
 
-    <dialog id="personDialog" class="person-dialog card">
-      <form id="personForm" method="dialog">
-        <header>
+    <dialog id="personDialog" class="dialog">
+      <form id="personForm" method="dialog" class="dialog-body">
+        <header class="row between">
           <h2 id="dialogTitle">Neue Person</h2>
-          <button type="button" id="closeDialog" class="icon-btn" aria-label="Schließen">✕</button>
+          <button type="button" id="closeDialog" class="icon">✕</button>
         </header>
 
-        <div class="form-grid">
-          <label>Vor- & Nachname<input name="name" required /></label>
-          <label>Kategorie
-            <select id="formCategorySelect" name="category" required></select>
-          </label>
+        <section class="card-light grid1">
+          <label>Name<input name="name" required /></label>
+          <label>Kategorie<select id="formCategorySelect" name="category" required></select></label>
           <label>Adresse<input name="address" /></label>
           <label>Geburtstag<input type="date" name="birthday" /></label>
           <label>Beruf<input name="job" /></label>
-          <label>Woher kennt ihr euch?<input name="source" placeholder="z. B. Arbeit, Uni, Verein" /></label>
-          <label>Beziehungsstatus zur Person<input name="relationship" placeholder="z. B. Kundin, Kollegin, Cousin" /></label>
+          <label>Woher kennt ihr euch?<input name="source" /></label>
+          <label>Beziehung zur Person<input name="relationship" /></label>
+          <label>Ehepartner/in<input name="spouseName" /></label>
+        </section>
 
-          <fieldset class="subsection">
-            <legend>Familie 👨‍👩‍👧‍👦</legend>
-            <label>Ehepartner/in Name<input name="spouseName" placeholder="z. B. Julia" /></label>
-            <label>Kinder Namen<input name="childrenNames" placeholder="z. B. Emma, Noah" /></label>
-            <label>Geschlechter der Kinder<input name="childrenGenders" placeholder="z. B. w, m" /></label>
-          </fieldset>
+        <section class="card-light">
+          <div class="row between">
+            <h3>Kinder 👶</h3>
+            <button id="addChildButton" type="button" class="btn">+ Kind</button>
+          </div>
+          <div id="childrenContainer" class="stack"></div>
+        </section>
 
-          <fieldset class="subsection">
-            <legend>Interessen & Kontext 🎯</legend>
-            <label>Privates<textarea name="privateNotes" rows="2"></textarea></label>
-            <label>Berufliches<textarea name="workNotes" rows="2"></textarea></label>
-            <label>Sportliche Interessen<textarea name="sportsInterests" rows="2"></textarea></label>
-            <label>Politische Interessen<textarea name="politicalInterests" rows="2"></textarea></label>
-            <label>Hobbys & Vorlieben<textarea name="hobbies" rows="2"></textarea></label>
-            <label>Wichtige Gesprächsnotizen<textarea name="conversationHints" rows="2"></textarea></label>
-          </fieldset>
+        <section class="card-light grid1">
+          <label>Privates<textarea name="privateNotes" rows="2"></textarea></label>
+          <label>Berufliches<textarea name="workNotes" rows="2"></textarea></label>
+          <label>Sportliche Interessen<textarea name="sportsInterests" rows="2"></textarea></label>
+          <label>Politische Interessen<textarea name="politicalInterests" rows="2"></textarea></label>
+          <label>Hobbys<textarea name="hobbies" rows="2"></textarea></label>
+          <label>Gesprächsnotizen<textarea name="conversationHints" rows="2"></textarea></label>
+        </section>
 
-          <fieldset class="subsection">
-            <legend>Beziehung zu bestehendem Kontakt 🔗</legend>
-            <label>Kontakt auswählen
-              <select id="relationContactId" name="relationContactId"></select>
-            </label>
-            <label>Art der Beziehung<input name="relationType" placeholder="z. B. Bruder von, arbeitet mit" /></label>
-          </fieldset>
-        </div>
+        <section class="card-light grid1">
+          <h3>Kontakt-Verknüpfung 🔗</h3>
+          <label>Bestehender Kontakt<select id="relationContactId" name="relationContactId"></select></label>
+          <label>Beziehungsart<input name="relationType" placeholder="z.B. Bruder von" /></label>
+        </section>
 
-        <footer>
-          <button type="button" id="deleteButton" class="btn btn-danger hidden">Löschen</button>
-          <button type="submit" class="btn btn-primary">Speichern</button>
+        <footer class="row between">
+          <button type="button" id="deleteButton" class="btn danger hidden">Löschen</button>
+          <button type="submit" class="btn primary">Speichern</button>
         </footer>
       </form>
     </dialog>
 
+    <template id="childTemplate">
+      <div class="child-row card-light">
+        <input data-child="name" placeholder="Kind Name" />
+        <select data-child="gender">
+          <option value="">Geschlecht</option>
+          <option value="w">weiblich</option>
+          <option value="m">männlich</option>
+          <option value="divers">divers</option>
+        </select>
+        <button type="button" class="btn danger" data-remove-child>Entfernen</button>
+      </div>
+    </template>
+
     <template id="personCardTemplate">
-      <article class="person-card card">
-        <div class="card-top">
+      <article class="card person-card">
+        <div class="row between">
           <h3 class="person-name"></h3>
           <span class="chip category-chip"></span>
         </div>
         <p class="person-meta"></p>
-        <ul class="tag-list"></ul>
+        <ul class="tags"></ul>
         <details>
-          <summary>Details anzeigen</summary>
+          <summary>Mehr Details</summary>
           <div class="details-content"></div>
         </details>
       </article>
