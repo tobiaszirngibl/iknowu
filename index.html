@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7ff" />
+    <title>People Memory – PoC</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header card">
+        <p class="eyebrow">PoC WebApp</p>
+        <h1>People Memory</h1>
+        <p class="subtitle">Alle wichtigen Infos zu Menschen – schnell auffindbar, freundlich & übersichtlich.</p>
+      </header>
+
+      <section id="homeTab" class="tab-panel active" data-tab="home">
+        <article class="card hero">
+          <h2>Willkommen 👋</h2>
+          <p>Nutze diese App, um Kontaktwissen zu sichern und in Gesprächen besser vorbereitet zu sein.</p>
+          <div class="hero-actions">
+            <button id="addPersonButton" class="btn btn-primary">+ Neue Person hinzufügen</button>
+            <button id="seedButton" class="btn">Demo-Daten laden</button>
+          </div>
+        </article>
+        <section id="stats" class="stats"></section>
+      </section>
+
+      <section id="contactsTab" class="tab-panel" data-tab="kontakte">
+        <section class="toolbar card">
+          <label class="search-field" for="searchInput">
+            <span>🔎</span>
+            <input id="searchInput" type="search" placeholder="Suche nach Name, Beruf, Interesse …" />
+          </label>
+          <select id="categoryFilter">
+            <option value="">Alle Kategorien</option>
+            <option value="Beruf">Beruf</option>
+            <option value="Privat">Privat</option>
+            <option value="Freunde">Freunde</option>
+            <option value="Familie">Familie</option>
+            <option value="Verein">Verein</option>
+          </select>
+        </section>
+        <section id="personList" class="person-list"></section>
+      </section>
+
+      <section id="categoriesTab" class="tab-panel" data-tab="kategorien">
+        <article class="card">
+          <h2>Kategorien</h2>
+          <p class="subtitle">Tippe auf eine Kategorie, um direkt die Kontakte zu filtern.</p>
+          <div id="categoryOverview" class="category-overview"></div>
+        </article>
+      </section>
+
+      <section id="settingsTab" class="tab-panel" data-tab="settings">
+        <article class="card settings">
+          <h2>Settings</h2>
+          <p>Lokale Datenverwaltung für den PoC.</p>
+          <button id="exportButton" class="btn">Daten exportieren (JSON)</button>
+          <button id="clearButton" class="btn btn-danger">Alle Daten löschen</button>
+        </article>
+      </section>
+
+      <nav class="tab-nav card" aria-label="Hauptnavigation">
+        <button class="tab-link active" data-target="home">Home</button>
+        <button class="tab-link" data-target="kontakte">Kontakte</button>
+        <button class="tab-link" data-target="kategorien">Kategorien</button>
+        <button class="tab-link" data-target="settings">Settings</button>
+      </nav>
+    </main>
+
+    <dialog id="personDialog" class="person-dialog card">
+      <form id="personForm" method="dialog">
+        <header>
+          <h2 id="dialogTitle">Neue Person</h2>
+          <button type="button" id="closeDialog" class="icon-btn" aria-label="Schließen">✕</button>
+        </header>
+
+        <div class="form-grid">
+          <label>Vor- & Nachname<input name="name" required /></label>
+          <label>Kategorie
+            <select name="category" required>
+              <option value="Beruf">Beruf</option>
+              <option value="Privat">Privat</option>
+              <option value="Freunde">Freunde</option>
+              <option value="Familie">Familie</option>
+              <option value="Verein">Verein</option>
+            </select>
+          </label>
+          <label>Adresse<input name="address" /></label>
+          <label>Geburtstag<input type="date" name="birthday" /></label>
+          <label>Beruf<input name="job" /></label>
+          <label>Beziehungsstatus zur Person<input name="relationship" placeholder="z. B. Kunde, Kollegin, Cousin" /></label>
+          <label>Kontakt-Notiz<input name="source" placeholder="Woher kennst du die Person?" /></label>
+          <label>Privates<textarea name="privateNotes" rows="2"></textarea></label>
+          <label>Berufliches<textarea name="workNotes" rows="2"></textarea></label>
+          <label>Sportliche Interessen<textarea name="sportsInterests" rows="2"></textarea></label>
+          <label>Politische Interessen<textarea name="politicalInterests" rows="2"></textarea></label>
+          <label>Hobbys & Vorlieben<textarea name="hobbies" rows="2"></textarea></label>
+          <label>Familie<textarea name="family" rows="2"></textarea></label>
+          <label>Wichtige Gesprächsnotizen<textarea name="conversationHints" rows="2"></textarea></label>
+        </div>
+
+        <footer>
+          <button type="button" id="deleteButton" class="btn btn-danger hidden">Löschen</button>
+          <button type="submit" class="btn btn-primary">Speichern</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <template id="personCardTemplate">
+      <article class="person-card card">
+        <div class="card-top">
+          <h3 class="person-name"></h3>
+          <span class="chip category-chip"></span>
+        </div>
+        <p class="person-meta"></p>
+        <ul class="tag-list"></ul>
+        <details>
+          <summary>Details anzeigen</summary>
+          <div class="details-content"></div>
+        </details>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
