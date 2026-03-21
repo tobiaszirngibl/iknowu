@@ -1,0 +1,171 @@
+:root {
+  --bg: #f8fbff;
+  --card: #ffffff;
+  --line: #dce8ff;
+  --text: #1f2a44;
+  --muted: #63739a;
+  --primary: #4e7cff;
+  --primary2: #29c8a6;
+  --danger: #ea4f5a;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 10% 10%, #eaf4ff 0, transparent 30%), var(--bg);
+}
+
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: 12px 12px 90px;
+  display: grid;
+  gap: 12px;
+}
+
+.topbar,
+.card,
+.dialog,
+.bottom-nav {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(49, 82, 160, 0.08);
+}
+
+.topbar {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow { margin: 0; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+h1,h2,h3,p { margin: 0; }
+
+.tab { display: none; gap: 12px; }
+.tab.active { display: grid; animation: slide 0.2s ease; }
+
+.card { padding: 12px; }
+.hero { gap: 10px; display: grid; }
+.stack { display: grid; gap: 10px; }
+.row { display: flex; gap: 8px; align-items: center; }
+.between { justify-content: space-between; }
+.grid1 { display: grid; gap: 8px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+  background: #edf2ff;
+  color: var(--text);
+  cursor: pointer;
+}
+.btn.primary { color: #fff; background: linear-gradient(120deg, var(--primary), var(--primary2)); }
+.btn.danger { color: #fff; background: var(--danger); }
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: #f7faff;
+}
+
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+}
+.search input { border: 0; padding: 0; background: transparent; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.stat { padding: 10px; }
+.stat span { color: var(--muted); font-size: 13px; }
+.stat strong { display: block; font-size: 20px; margin-top: 4px; }
+
+.bars { display: grid; gap: 8px; }
+.bar { height: 10px; background: #edf3ff; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+.bar div { height: 100%; background: linear-gradient(90deg, #6288ff, #38cbb2); }
+.list { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+
+.person-card .person-meta { margin: 6px 0; color: var(--muted); }
+.chip { background: #edf2ff; border-radius: 999px; padding: 4px 8px; font-size: 12px; }
+.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; }
+.tags li { background: #e9fbf6; border-radius: 999px; padding: 4px 8px; font-size: 12px; }
+
+.dialog {
+  width: min(560px, 96vw);
+  border: 1px solid var(--line);
+}
+.dialog::backdrop { background: rgba(25, 45, 84, 0.35); }
+.dialog-body { display: grid; gap: 10px; padding: 12px; }
+.card-light { background: #f8fbff; border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+.icon { border: none; background: transparent; font-size: 18px; cursor: pointer; }
+
+.child-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.nav-btn {
+  border: 0;
+  background: transparent;
+  border-radius: 12px;
+  padding: 8px 4px;
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+.nav-btn.active { background: #eef3ff; color: var(--text); font-weight: 700; }
+
+.hidden { display: none; }
+
+@keyframes slide {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 760px) {
+  .app {
+    max-width: 980px;
+    padding-bottom: 16px;
+  }
+  .bottom-nav {
+    position: static;
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+  }
+  .grid1 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dialog { width: min(860px, 96vw); }
+}

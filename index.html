@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8fbff" />
+    <title>People Memory</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">People Memory</p>
+          <h1>Dein Kontakt-CRM 📱</h1>
+        </div>
+        <button id="addPersonButton" class="btn primary">+ Kontakt</button>
+      </header>
+
+      <section class="tab active" data-tab="home">
+        <article class="card hero">
+          <h2>Home</h2>
+          <p>Übersicht über Kontakte, Familieninfos und Beziehungen.</p>
+          <div id="stats" class="stats"></div>
+        </article>
+
+        <article class="card">
+          <h3>Kategorien</h3>
+          <div id="homeCharts" class="bars"></div>
+        </article>
+
+        <article class="card">
+          <h3>Nächste Geburtstage 🎂</h3>
+          <ul id="birthdayList" class="list"></ul>
+        </article>
+      </section>
+
+      <section class="tab" data-tab="kontakte">
+        <article class="card">
+          <label class="search">
+            <span>🔎</span>
+            <input id="searchInput" placeholder="Suche nach Name, Beruf, Interessen..." />
+          </label>
+          <select id="categoryFilter"></select>
+        </article>
+        <section id="personList" class="stack"></section>
+      </section>
+
+      <section class="tab" data-tab="kategorien">
+        <article class="card">
+          <h2>Kategorien</h2>
+          <form id="categoryForm" class="row">
+            <input id="newCategoryInput" placeholder="Eigene Kategorie, z.B. Nachbarn" required />
+            <button class="btn" type="submit">Hinzufügen</button>
+          </form>
+          <div id="categoryOverview" class="grid2"></div>
+        </article>
+      </section>
+
+      <section class="tab" data-tab="settings">
+        <article class="card stack">
+          <h2>Settings</h2>
+          <button id="seedButton" class="btn">Demo-Daten laden</button>
+          <button id="exportButton" class="btn">Export JSON</button>
+          <button id="clearButton" class="btn danger">Alle Daten löschen</button>
+        </article>
+      </section>
+
+      <nav class="bottom-nav">
+        <button class="nav-btn active" data-target="home">🏠<span>Home</span></button>
+        <button class="nav-btn" data-target="kontakte">👥<span>Kontakte</span></button>
+        <button class="nav-btn" data-target="kategorien">🗂️<span>Kategorien</span></button>
+        <button class="nav-btn" data-target="settings">⚙️<span>Settings</span></button>
+      </nav>
+    </main>
+
+    <dialog id="personDialog" class="dialog">
+      <form id="personForm" method="dialog" class="dialog-body">
+        <header class="row between">
+          <h2 id="dialogTitle">Neue Person</h2>
+          <button type="button" id="closeDialog" class="icon">✕</button>
+        </header>
+
+        <section class="card-light grid1">
+          <label>Name<input name="name" required /></label>
+          <label>Kategorie<select id="formCategorySelect" name="category" required></select></label>
+          <label>Adresse<input name="address" /></label>
+          <label>Geburtstag<input type="date" name="birthday" /></label>
+          <label>Beruf<input name="job" /></label>
+          <label>Woher kennt ihr euch?<input name="source" /></label>
+          <label>Beziehung zur Person<input name="relationship" /></label>
+          <label>Ehepartner/in<input name="spouseName" /></label>
+        </section>
+
+        <section class="card-light">
+          <div class="row between">
+            <h3>Kinder 👶</h3>
+            <button id="addChildButton" type="button" class="btn">+ Kind</button>
+          </div>
+          <div id="childrenContainer" class="stack"></div>
+        </section>
+
+        <section class="card-light grid1">
+          <label>Privates<textarea name="privateNotes" rows="2"></textarea></label>
+          <label>Berufliches<textarea name="workNotes" rows="2"></textarea></label>
+          <label>Sportliche Interessen<textarea name="sportsInterests" rows="2"></textarea></label>
+          <label>Politische Interessen<textarea name="politicalInterests" rows="2"></textarea></label>
+          <label>Hobbys<textarea name="hobbies" rows="2"></textarea></label>
+          <label>Gesprächsnotizen<textarea name="conversationHints" rows="2"></textarea></label>
+        </section>
+
+        <section class="card-light grid1">
+          <h3>Kontakt-Verknüpfung 🔗</h3>
+          <label>Bestehender Kontakt<select id="relationContactId" name="relationContactId"></select></label>
+          <label>Beziehungsart<input name="relationType" placeholder="z.B. Bruder von" /></label>
+        </section>
+
+        <footer class="row between">
+          <button type="button" id="deleteButton" class="btn danger hidden">Löschen</button>
+          <button type="submit" class="btn primary">Speichern</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <template id="childTemplate">
+      <div class="child-row card-light">
+        <input data-child="name" placeholder="Kind Name" />
+        <select data-child="gender">
+          <option value="">Geschlecht</option>
+          <option value="w">weiblich</option>
+          <option value="m">männlich</option>
+          <option value="divers">divers</option>
+        </select>
+        <button type="button" class="btn danger" data-remove-child>Entfernen</button>
+      </div>
+    </template>
+
+    <template id="personCardTemplate">
+      <article class="card person-card">
+        <div class="row between">
+          <h3 class="person-name"></h3>
+          <span class="chip category-chip"></span>
+        </div>
+        <p class="person-meta"></p>
+        <ul class="tags"></ul>
+        <details>
+          <summary>Mehr Details</summary>
+          <div class="details-content"></div>
+        </details>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
